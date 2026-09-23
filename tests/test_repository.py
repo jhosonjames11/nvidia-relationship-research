@@ -101,6 +101,58 @@ def test_network_respects_depth_and_returns_nodes_and_edges() -> None:
     assert all("nvidia" in {edge.from_company_id, edge.to_company_id} for edge in result.edges)
 
 
+def test_network_includes_all_101_eligible_root_edges() -> None:
+    base = SnapshotRepository.from_directory(FIXTURE)
+    relationship = base.get_relationship("rel-nvidia-dell-customer")
+    assert relationship is not None
+
+    companies = {"nvidia": base.company_by_id["nvidia"]}
+    relationships = {}
+    for index in range(101):
+        company_id = f"partner-{index:03d}"
+        companies[company_id] = base.company_by_id["dell"].model_copy(
+            update={"id": company_id, "ticker": f"P{index:03d}"}
+        )
+        edge_id = f"rel-network-{index:03d}"
+        relationships[edge_id] = relationship.model_copy(
+            update={"id": edge_id, "to_company_id": company_id}
+        )
+    repo = SnapshotRepository(
+        base.manifest,
+        companies,
+        base.source_by_id,
+        base.evidence_by_id,
+        relationships,
+    )
+
+    result = repo.network(company_id="nvidia", depth=1)
+
+    assert len(result.edges) == 101
+    assert "rel-network-100" in {edge.id for edge in result.edges}
+
+
+def test_mutating_a_returned_score_mapping_cannot_corrupt_cached_details() -> None:
+    repo = SnapshotRepository.from_directory(FIXTURE)
+    first = repo.get_relationship("rel-tsmc-nvidia-supplier")
+    assert first is not None
+    original = first.confidence_score.components["source_authority"]
+    original_publisher_count = first.confidence_score.inputs["independent_publisher_count"]
+
+    try:
+        first.confidence_score.components["source_authority"] = 0.0
+    except TypeError:
+        pass
+    try:
+        first.confidence_score.inputs["independent_publisher_count"] = 0
+    except TypeError:
+        pass
+
+    later = repo.get_relationship("rel-tsmc-nvidia-supplier")
+    assert later is not None
+    assert later.confidence_score.components["source_authority"] == original
+    assert later.confidence_score.inputs["independent_publisher_count"] == original_publisher_count
+
+
 def test_invalid_page_bounds_raise_value_error() -> None:
     repo = SnapshotRepository.from_directory(FIXTURE)
 

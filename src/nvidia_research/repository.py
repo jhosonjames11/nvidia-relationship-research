@@ -27,6 +27,28 @@ T = TypeVar("T")
 ModelT = TypeVar("ModelT", bound=BaseModel)
 
 
+class _FrozenDict(dict[str, object]):
+    """A JSON-serializable dictionary that rejects in-place mutation."""
+
+    def _immutable(self, *args: object, **kwargs: object) -> None:
+        raise TypeError("snapshot score mappings are immutable")
+
+    __setitem__ = _immutable
+    __delitem__ = _immutable
+    clear = _immutable
+    pop = _immutable
+    popitem = _immutable
+    setdefault = _immutable
+    update = _immutable
+    __ior__ = _immutable
+
+    def __copy__(self) -> "_FrozenDict":
+        return self
+
+    def __deepcopy__(self, memo: dict[int, object]) -> "_FrozenDict":
+        return self
+
+
 class SnapshotValidationError(ValueError):
     """Raised when a local snapshot has invalid data or broken references."""
 
@@ -304,6 +326,12 @@ class SnapshotRepository:
             score = score_relationship(
                 relationship, evidence_by_id, source_by_id, report.manifest.as_of
             )
+            score = score.model_copy(
+                update={
+                    "components": _FrozenDict(score.components),
+                    "inputs": _FrozenDict(score.inputs),
+                }
+            )
             linked_evidence = tuple(
                 EvidenceDetail(
                     **item.model_dump(), source=source_by_id[item.source_id]
@@ -349,7 +377,7 @@ class SnapshotRepository:
         companies.sort(key=lambda company: (company.legal_name.casefold(), company.id))
         return self._page(companies, limit=limit, offset=offset)
 
-    def list_relationships(
+    def _filtered_relationships(
         self,
         *,
         company_id: str | None = None,
@@ -358,10 +386,8 @@ class SnapshotRepository:
         direction: str | None = None,
         valid_on: date | None = None,
         min_confidence: int = 0,
-        limit: int = 20,
-        offset: int = 0,
-    ) -> Page[RelationshipDetail]:
-        """Filter relationship edges using snapshot-local data only."""
+    ) -> list[RelationshipDetail]:
+        """Return all relationship edges matching validated filter arguments."""
 
         if not 0 <= min_confidence <= 100:
             raise ValueError("min_confidence must be between 0 and 100")
@@ -415,6 +441,30 @@ class SnapshotRepository:
             item for item in relationships if item.confidence_score.total >= min_confidence
         ]
         relationships.sort(key=lambda item: (-item.confidence_score.total, item.id))
+        return relationships
+
+    def list_relationships(
+        self,
+        *,
+        company_id: str | None = None,
+        relationship_type: RelationshipType | str | None = None,
+        status: RelationshipStatus | str | None = None,
+        direction: str | None = None,
+        valid_on: date | None = None,
+        min_confidence: int = 0,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> Page[RelationshipDetail]:
+        """Filter relationship edges using snapshot-local data only."""
+
+        relationships = self._filtered_relationships(
+            company_id=company_id,
+            relationship_type=relationship_type,
+            status=status,
+            direction=direction,
+            valid_on=valid_on,
+            min_confidence=min_confidence,
+        )
         return self._page(relationships, limit=limit, offset=offset)
 
     def get_relationship(self, relationship_id: str) -> RelationshipDetail | None:
@@ -447,13 +497,12 @@ class SnapshotRepository:
         if not 1 <= depth <= 2:
             raise ValueError("depth must be between 1 and 2")
 
-        eligible_edges = self.list_relationships(
+        eligible_edges = self._filtered_relationships(
             relationship_type=relationship_type,
             status=status,
             valid_on=valid_on,
             min_confidence=min_confidence,
-            limit=100,
-        ).items
+        )
         visited_company_ids = {company_id}
         frontier = {company_id}
         edge_by_id: dict[str, RelationshipDetail] = {}
