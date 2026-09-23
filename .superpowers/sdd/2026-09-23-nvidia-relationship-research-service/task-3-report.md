@@ -36,3 +36,11 @@ GREEN: After implementation, the focused suite passed: `5 passed in 0.06s`.
 ## Concerns
 
 - `score_inputs` consistency with linked source publishers and latest publication date remains a repository validation responsibility for Task 4.
+
+## Review fix
+
+The review identified that `ScoreBreakdown.inputs` did not retain enough raw data to reproduce the score. The scorer now includes `as_of`, relationship type, all linked source-tier values, and all linked evidence directness values alongside the existing evidence dates, publisher count, and latest evidence date. The unused `Directness` import was removed. A focused assertion test covers these audit inputs.
+
+RED: The new assertions initially failed with `KeyError: 'as_of'` (`1 failed, 4 passed`).
+
+GREEN: `python -m pytest tests/test_scoring.py -q` — 5 passed; `python -m pytest -q` — 21 passed; `git diff --check` passed.

@@ -65,6 +65,10 @@ def test_primary_direct_supplier_with_one_publisher_scores_85(score_case) -> Non
     assert breakdown.total == 85
     assert breakdown.components["source_authority"] == 0.9
     assert breakdown.components["independent_corroboration"] == 0.4
+    assert breakdown.inputs["as_of"] == date(2026, 9, 23)
+    assert breakdown.inputs["relationship_type"] == "supplier"
+    assert breakdown.inputs["source_tiers"] == ("issuer_or_counterparty",)
+    assert breakdown.inputs["directness_values"] == ("direct",)
 
 
 def test_three_publishers_and_context_only_evidence_are_explained(score_case) -> None:

@@ -5,7 +5,7 @@ from typing import Mapping
 
 from pydantic import BaseModel, ConfigDict
 
-from .models import Directness, Evidence, Relationship, Source
+from .models import Evidence, Relationship, Source
 
 
 SOURCE_AUTHORITY = {
@@ -143,6 +143,10 @@ def score_relationship(
             "evidence_dates": tuple(evidence_dates),
             "independent_publisher_count": publisher_count,
             "latest_evidence_date": latest_date,
+            "as_of": as_of,
+            "relationship_type": relationship_type,
+            "source_tiers": tuple(_value(source.source_tier) for source in sources),
+            "directness_values": tuple(_value(item.directness) for item in evidence),
         },
         total=total,
         explanation=explanation,
