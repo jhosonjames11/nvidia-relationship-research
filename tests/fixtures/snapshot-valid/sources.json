@@ -1,0 +1,6 @@
+[
+  {"id": "src-tsmc", "title": "Fictional TSMC filing", "url": "https://research.example.test/tsmc-filing", "publisher": "TSMC Fictional Corporation", "published_at": "2026-09-23", "accessed_at": "2026-09-23", "source_tier": "issuer_or_counterparty", "access_limitations": "Fictional test fixture; not a research source."},
+  {"id": "src-coreweave", "title": "Fictional CoreWeave release", "url": "https://research.example.test/coreweave-release", "publisher": "CoreWeave Fictional Inc.", "published_at": "2026-08-01", "accessed_at": "2026-09-23", "source_tier": "issuer_or_counterparty", "access_limitations": "Fictional test fixture; not a research source."},
+  {"id": "src-dell", "title": "Fictional Dell filing", "url": "https://research.example.test/dell-filing", "publisher": "Dell Fictional Technologies", "published_at": "2026-07-01", "accessed_at": "2026-09-23", "source_tier": "issuer_or_counterparty", "access_limitations": "Fictional test fixture; not a research source."},
+  {"id": "src-amd", "title": "Fictional AMD filing", "url": "https://research.example.test/amd-filing", "publisher": "AMD Fictional Corporation", "published_at": "2025-06-01", "accessed_at": "2026-09-23", "source_tier": "issuer_or_counterparty", "access_limitations": "Fictional test fixture; not a research source."}
+]
