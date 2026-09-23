@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ev-nvidia-tsmc-foundry-2026",
+    "source_id": "src-nvidia-10k-2026",
+    "locator": "Item 1. Business, manufacturing/supply-chain discussion, page 8 of the filing table of contents; paragraph beginning \"We have expanded our supplier relationships to build redundancy…\"",
+    "excerpt": "We utilize foundries, such as Taiwan Semiconductor Manufacturing Company Limited, or TSMC, and Samsung Electronics Co., Ltd., or Samsung, to produce our semiconductor wafers.",
+    "directness": "direct",
+    "human_verified": true,
+    "reviewed_at": "2026-09-23"
+  },
+  {
+    "id": "ev-coreweave-nvidia-msa-customer-2025",
+    "source_id": "src-crwv-424b4-2025",
+    "locator": "Certain Relationships and Related Party Transactions, subsection \"NVIDIA Master Services Agreement,\" first paragraph.",
+    "excerpt": "In April 2023, we entered into a Master Services Agreement (the ‘Master Services Agreement’) with NVIDIA, a beneficial owner of more than 5% of our outstanding capital stock, pursuant to which we provide NVIDIA with our infrastructure and platform services through fulfillment of order forms submitted to us by NVIDIA. As of December 31, 2024, NVIDIA has paid us an aggregate of approximately $320 million pursuant to the Master Services Agreement and related order forms.",
+    "directness": "direct",
+    "human_verified": true,
+    "reviewed_at": "2026-09-23"
+  },
+  {
+    "id": "ev-nvidia-dell-helix-2023",
+    "source_id": "src-nvidia-dell-helix-2023",
+    "locator": "Release lead immediately under the 2023-05-23 date and \"Dell Technologies World\" dateline.",
+    "excerpt": "Dell Technologies (NYSE: DELL) and NVIDIA (NASDAQ: NVDA) announce a joint initiative to make it easier for businesses to build and use generative AI models on premises…",
+    "directness": "direct",
+    "human_verified": true,
+    "reviewed_at": "2026-09-23"
+  },
+  {
+    "id": "ev-coreweave-nvidia-beneficial-owner-2025",
+    "source_id": "src-crwv-424b4-2025",
+    "locator": "Certain Relationships and Related Party Transactions, subsection \"NVIDIA Master Services Agreement,\" first paragraph.",
+    "excerpt": "In April 2023, we entered into a Master Services Agreement (the ‘Master Services Agreement’) with NVIDIA, a beneficial owner of more than 5% of our outstanding capital stock…",
+    "directness": "direct",
+    "human_verified": true,
+    "reviewed_at": "2026-09-23"
+  },
+  {
+    "id": "ev-nvidia-amd-competition-2026",
+    "source_id": "src-nvidia-10k-2026",
+    "locator": "Item 1. Business, \"Competition,\" page 8 of the filing table of contents; first bullet after \"Our current competitors include:\"",
+    "excerpt": "Our current competitors include: • suppliers and licensors of hardware and software for discrete and integrated GPUs, custom chips and other accelerated computing solutions, including solutions offered for AI, such as Advanced Micro Devices, Inc., or AMD…",
+    "directness": "direct",
+    "human_verified": true,
+    "reviewed_at": "2026-09-23"
+  }
+]

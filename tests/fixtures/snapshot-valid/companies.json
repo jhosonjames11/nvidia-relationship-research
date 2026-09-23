@@ -1,0 +1,7 @@
+[
+  {"id": "nvidia", "legal_name": "NVIDIA Fictional Corporation", "ticker": "NVDA", "exchange": "XTEST", "country_or_region": "Testland", "aliases": ["NVIDIA Fixture"]},
+  {"id": "tsmc", "legal_name": "TSMC Fictional Corporation", "ticker": "TSM", "exchange": "XTEST", "country_or_region": "Testland", "aliases": ["TSMC Fixture"]},
+  {"id": "dell", "legal_name": "Dell Fictional Technologies", "ticker": "DELL", "exchange": "XTEST", "country_or_region": "Testland", "aliases": ["Dell Fixture"]},
+  {"id": "coreweave", "legal_name": "CoreWeave Fictional Inc.", "ticker": "CRWV", "exchange": "XTEST", "country_or_region": "Testland", "aliases": ["CoreWeave Fixture"]},
+  {"id": "amd", "legal_name": "AMD Fictional Corporation", "ticker": "AMD", "exchange": "XTEST", "country_or_region": "Testland", "aliases": ["AMD Fixture"]}
+]

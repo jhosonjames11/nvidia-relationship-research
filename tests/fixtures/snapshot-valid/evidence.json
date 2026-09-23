@@ -1,0 +1,6 @@
+[
+  {"id": "ev-tsmc", "source_id": "src-tsmc", "locator": "Fictional page 1", "excerpt": "Fictional test-only statement that TSMC supplies NVIDIA.", "directness": "direct", "human_verified": true, "reviewed_at": "2026-09-23"},
+  {"id": "ev-coreweave", "source_id": "src-coreweave", "locator": "Fictional section 2", "excerpt": "Fictional test-only statement that CoreWeave buys from NVIDIA.", "directness": "direct", "human_verified": true, "reviewed_at": "2026-09-23"},
+  {"id": "ev-dell", "source_id": "src-dell", "locator": "Fictional page 3", "excerpt": "Fictional test-only statement that NVIDIA buys from Dell.", "directness": "direct", "human_verified": true, "reviewed_at": "2026-09-23"},
+  {"id": "ev-amd", "source_id": "src-amd", "locator": "Fictional page 4", "excerpt": "Fictional test-only statement that AMD and NVIDIA are peers.", "directness": "direct", "human_verified": true, "reviewed_at": "2026-09-23"}
+]
