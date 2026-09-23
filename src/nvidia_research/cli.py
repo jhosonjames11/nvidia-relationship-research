@@ -94,7 +94,10 @@ def _response(repository: SnapshotRepository, data: Any, **pagination: int) -> d
 
 
 def _companies(repository: SnapshotRepository, arguments: argparse.Namespace) -> dict[str, Any]:
-    results = repository.search_companies(arguments.query, limit=100, offset=0).items
+    first_page = repository.search_companies(arguments.query, limit=100, offset=0)
+    results = list(first_page.items)
+    for offset in range(100, first_page.total, 100):
+        results.extend(repository.search_companies(arguments.query, limit=100, offset=offset).items)
     results = tuple(
         company
         for company in results

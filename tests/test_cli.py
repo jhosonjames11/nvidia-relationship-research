@@ -64,6 +64,33 @@ def test_companies_command_applies_all_filters_and_page_metadata(
     assert [company["id"] for company in body["data"]] == ["tsmc"]
 
 
+def test_companies_filters_before_paging_the_complete_repository_result(
+    tmp_path: Path, fixture_snapshot_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Limiting the repository query before ticker filtering must not hide later matches."""
+    snapshot_path = tmp_path / "large-snapshot"
+    shutil.copytree(fixture_snapshot_path, snapshot_path)
+    companies_path = snapshot_path / "companies.json"
+    companies = json.loads(companies_path.read_text(encoding="utf-8"))
+    companies.extend(
+        {
+            "id": f"extra-company-{index:03d}",
+            "legal_name": f"ZZZ Fixture Company {index:03d}",
+            "ticker": "MATCH" if index == 100 else f"X{index:03d}",
+            "exchange": "XTEST",
+            "country_or_region": "Testland",
+            "aliases": [],
+        }
+        for index in range(101)
+    )
+    companies_path.write_text(json.dumps(companies), encoding="utf-8")
+
+    assert main(["--snapshot", str(snapshot_path), "companies", "--ticker", "MATCH"]) == 0
+    body = json.loads(capsys.readouterr().out)
+    assert body["meta"]["total"] == 1
+    assert [company["id"] for company in body["data"]] == ["extra-company-100"]
+
+
 def test_network_and_relationship_detail_use_repository_results(
     fixture_snapshot_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:
