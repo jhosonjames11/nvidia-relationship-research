@@ -1,0 +1,52 @@
+[
+  {
+    "id": "src-nvidia-10k-2026",
+    "title": "NVIDIA Corporation Annual Report on Form 10-K for the fiscal year ended January 25, 2026",
+    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+    "publisher": "NVIDIA Corporation",
+    "published_at": "2026-02-25",
+    "accessed_at": "2026-09-23",
+    "source_tier": "regulator_or_exchange",
+    "access_limitations": "Public SEC HTML; issuer disclosure filed with the U.S. Securities and Exchange Commission, not an independent audit, describing the filing period."
+  },
+  {
+    "id": "src-tsmc-20f-2026",
+    "title": "Taiwan Semiconductor Manufacturing Company Limited Annual Report on Form 20-F for the year ended December 31, 2025",
+    "url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm",
+    "publisher": "Taiwan Semiconductor Manufacturing Company Limited",
+    "published_at": "2026-04-16",
+    "accessed_at": "2026-09-23",
+    "source_tier": "regulator_or_exchange",
+    "access_limitations": "Public SEC HTML used only to resolve TSMC legal-name, ticker, and exchange identity; it is not relationship evidence."
+  },
+  {
+    "id": "src-crwv-424b4-2025",
+    "title": "CoreWeave, Inc. Prospectus (Rule 424(b)(4), Registration No. 333-285512)",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000119312525067651/d899798d424b4.htm",
+    "publisher": "CoreWeave, Inc.",
+    "published_at": "2025-03-31",
+    "accessed_at": "2026-09-23",
+    "source_tier": "regulator_or_exchange",
+    "access_limitations": "Public SEC HTML; issuer disclosure in the prospectus context, including a separate buyer role for NVIDIA, not an assertion of current ownership or current service activity."
+  },
+  {
+    "id": "src-nvidia-dell-helix-2023",
+    "title": "Dell Technologies and NVIDIA Introduce Project Helix for Secure, On-Premises Generative AI",
+    "url": "https://nvidianews.nvidia.com/news/dell-technologies-and-nvidia-introduce-project-helix-for-secure-on-premises-generative-ai",
+    "publisher": "NVIDIA Corporation",
+    "published_at": "2023-05-23",
+    "accessed_at": "2026-09-23",
+    "source_tier": "issuer_or_counterparty",
+    "access_limitations": "Public NVIDIA newsroom release; one party's announcement of a named initiative, not an independent or continuing-relationship statement."
+  },
+  {
+    "id": "src-amd-10k-2026",
+    "title": "Advanced Micro Devices, Inc. Annual Report on Form 10-K for the fiscal year ended December 27, 2025",
+    "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm",
+    "publisher": "Advanced Micro Devices, Inc.",
+    "published_at": "2026-02-04",
+    "accessed_at": "2026-09-23",
+    "source_tier": "regulator_or_exchange",
+    "access_limitations": "Public SEC HTML used only to resolve AMD legal-name, ticker, and exchange identity; it does not independently assert NVIDIA competition."
+  }
+]

@@ -1,0 +1,97 @@
+[
+  {
+    "id": "rel-tsmc-nvidia-supplier",
+    "from_company_id": "tsmc",
+    "to_company_id": "nvidia",
+    "relationship_type": "supplier",
+    "from_role": "supplier",
+    "to_role": "buyer",
+    "directionality": "directed",
+    "status": "confirmed",
+    "summary": "NVIDIA's 2026 Form 10-K identifies TSMC as a foundry it uses to produce semiconductor wafers; the disclosure does not assert exclusivity, capacity, spend, term, or continuation after the filing period.",
+    "event_or_business_context": "Filing-period manufacturing and supply-chain disclosure. The 2026-02-25 filing date is used as a conservative observation date, not as relationship inception.",
+    "valid_from": "2026-02-25",
+    "valid_to": "2026-02-25",
+    "evidence_ids": ["ev-nvidia-tsmc-foundry-2026"],
+    "score_inputs": {
+      "independent_publisher_count": 1,
+      "latest_evidence_date": "2026-02-25"
+    }
+  },
+  {
+    "id": "rel-nvidia-coreweave-customer",
+    "from_company_id": "nvidia",
+    "to_company_id": "coreweave",
+    "relationship_type": "customer",
+    "from_role": "customer",
+    "to_role": "seller",
+    "directionality": "directed",
+    "status": "confirmed",
+    "summary": "CoreWeave's prospectus identifies NVIDIA as a customer of CoreWeave infrastructure and platform services through NVIDIA-submitted order forms, with approximately $320 million paid as of December 31, 2024; this is not a claim that CoreWeave directly purchased GPUs from NVIDIA or that service activity continued after the prospectus context.",
+    "event_or_business_context": "CoreWeave prospectus disclosure of the NVIDIA Master Services Agreement. The 2025-03-31 filing date is used as a conservative observation date, not as relationship inception; April 2023 in the disclosure is only the stated month of the MSA.",
+    "valid_from": "2025-03-31",
+    "valid_to": "2025-03-31",
+    "evidence_ids": ["ev-coreweave-nvidia-msa-customer-2025"],
+    "score_inputs": {
+      "independent_publisher_count": 1,
+      "latest_evidence_date": "2025-03-31"
+    }
+  },
+  {
+    "id": "rel-dell-nvidia-partner",
+    "from_company_id": "dell",
+    "to_company_id": "nvidia",
+    "relationship_type": "partner",
+    "from_role": "partner",
+    "to_role": "partner",
+    "directionality": "undirected",
+    "status": "confirmed",
+    "summary": "Dell Technologies and NVIDIA announced the joint Project Helix initiative for secure, on-premises generative AI; the evidence is limited to that named collaboration and does not assert an exclusive, all-products, or indefinitely continuing partnership.",
+    "event_or_business_context": "Project Helix announcement dated 2023-05-23. The announcement date describes this collaboration context, not the start or continuation of every Dell-NVIDIA collaboration.",
+    "valid_from": "2023-05-23",
+    "valid_to": "2023-05-23",
+    "evidence_ids": ["ev-nvidia-dell-helix-2023"],
+    "score_inputs": {
+      "independent_publisher_count": 1,
+      "latest_evidence_date": "2023-05-23"
+    }
+  },
+  {
+    "id": "rel-nvidia-coreweave-investor",
+    "from_company_id": "nvidia",
+    "to_company_id": "coreweave",
+    "relationship_type": "investor_or_investee",
+    "from_role": "investor",
+    "to_role": "investee",
+    "directionality": "directed",
+    "status": "confirmed",
+    "summary": "CoreWeave's prospectus identifies NVIDIA as a beneficial owner of more than 5% of CoreWeave's outstanding capital stock in the prospectus context; it does not assert acquisition timing, control, economic stake, investment terms, or ownership after the offering.",
+    "event_or_business_context": "CoreWeave prospectus disclosure. The 2025-03-31 filing date is used as a conservative ownership observation date; April 2023 in the paragraph belongs to the separate Master Services Agreement, not to an investment start date.",
+    "valid_from": "2025-03-31",
+    "valid_to": "2025-03-31",
+    "evidence_ids": ["ev-coreweave-nvidia-beneficial-owner-2025"],
+    "score_inputs": {
+      "independent_publisher_count": 1,
+      "latest_evidence_date": "2025-03-31"
+    }
+  },
+  {
+    "id": "rel-amd-nvidia-peer",
+    "from_company_id": "amd",
+    "to_company_id": "nvidia",
+    "relationship_type": "peer",
+    "from_role": "peer",
+    "to_role": "peer",
+    "directionality": "undirected",
+    "status": "confirmed",
+    "summary": "NVIDIA's 2026 Form 10-K identifies AMD as a competitor on the stated axis of discrete and integrated GPUs, custom chips, and other accelerated computing solutions including AI; this is not a supply-chain, commercial-partner, or investment relationship.",
+    "event_or_business_context": "Filing-period competition disclosure. The 2026-02-25 filing date is used as a conservative observation date, not as the relationship's inception or evidence of continuation beyond the filing context.",
+    "valid_from": "2026-02-25",
+    "valid_to": "2026-02-25",
+    "evidence_ids": ["ev-nvidia-amd-competition-2026"],
+    "score_inputs": {
+      "independent_publisher_count": 1,
+      "latest_evidence_date": "2026-02-25"
+    }
+  }
+]

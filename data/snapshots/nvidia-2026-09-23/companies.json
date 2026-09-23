@@ -1,0 +1,42 @@
+[
+  {
+    "id": "nvidia",
+    "legal_name": "NVIDIA Corporation",
+    "ticker": "NVDA",
+    "exchange": "Nasdaq",
+    "country_or_region": "United States",
+    "aliases": ["NVIDIA"]
+  },
+  {
+    "id": "tsmc",
+    "legal_name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "ticker": "TSM",
+    "exchange": "New York Stock Exchange",
+    "country_or_region": "Taiwan",
+    "aliases": ["TSMC"]
+  },
+  {
+    "id": "coreweave",
+    "legal_name": "CoreWeave, Inc.",
+    "ticker": "CRWV",
+    "exchange": "Nasdaq",
+    "country_or_region": "United States",
+    "aliases": ["CoreWeave"]
+  },
+  {
+    "id": "dell",
+    "legal_name": "Dell Technologies Inc.",
+    "ticker": "DELL",
+    "exchange": "New York Stock Exchange",
+    "country_or_region": "United States",
+    "aliases": ["Dell Technologies"]
+  },
+  {
+    "id": "amd",
+    "legal_name": "Advanced Micro Devices, Inc.",
+    "ticker": "AMD",
+    "exchange": "Nasdaq Global Select Market",
+    "country_or_region": "United States",
+    "aliases": ["AMD"]
+  }
+]
