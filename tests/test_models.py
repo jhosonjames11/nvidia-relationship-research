@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 import pytest
 from pydantic import ValidationError
@@ -162,8 +162,20 @@ def test_manifest_accepts_the_local_snapshot_boundary_contract() -> None:
     manifest = SnapshotManifest(
         snapshot_id="nvidia-2026-09-23",
         as_of=date(2026, 9, 23),
+        generated_at=datetime(2026, 9, 23, 12, 0, 0),
         methodology_version="1.0",
         research_subject_company_id="nvidia",
         research_boundary="Publicly accessible, manually verified listed-company relationships.",
     )
     assert manifest.research_subject_company_id == "nvidia"
+
+
+def test_manifest_requires_an_iso_datetime_generation_timestamp() -> None:
+    with pytest.raises(ValidationError):
+        SnapshotManifest(
+            snapshot_id="nvidia-2026-09-23",
+            as_of=date(2026, 9, 23),
+            methodology_version="1.0",
+            research_subject_company_id="nvidia",
+            research_boundary="Publicly accessible, manually verified listed-company relationships.",
+        )

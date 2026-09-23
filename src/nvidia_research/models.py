@@ -62,7 +62,7 @@ class SnapshotModel(BaseModel):
 class SnapshotManifest(SnapshotModel):
     snapshot_id: Slug
     as_of: date
-    generated_at: datetime | None = None
+    generated_at: datetime
     methodology_version: NonEmptyText
     research_subject_company_id: Slug
     research_boundary: NonEmptyText
