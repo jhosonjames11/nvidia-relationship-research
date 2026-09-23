@@ -60,3 +60,21 @@
 
 None. The configured production default is a convention only until a later task
 adds production snapshot data.
+
+## Review fix: complete company filtering before pagination
+
+The review identified that `companies` requested only the first 100 repository
+search results before applying the CLI's ticker/exchange filters. A matching
+company later in a larger snapshot could therefore be omitted, producing an
+incorrect `total` and page.
+
+- The CLI now retrieves every page from `SnapshotRepository.search_companies()`
+  before applying ticker/exchange filters and requested CLI pagination.
+- Added a real snapshot regression fixture assembled from the fictional base
+  data with 101 later-sorting companies. Its sole `MATCH` ticker falls after the
+  first 100 repository results; the CLI now returns it with `total: 1`.
+
+TDD evidence: the new test failed before the fix with `total == 0` rather than
+the expected `1`. After the paginated collection change,
+`python -m pytest tests/test_cli.py -q` passed with **8 passed** and
+`python -m pytest -q` passed with **51 passed**. `git diff --check` also passed.
