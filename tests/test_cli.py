@@ -112,6 +112,25 @@ def test_network_and_relationship_detail_use_repository_results(
     ]
 
 
+def test_network_as_of_filters_expired_fixture_edges(
+    fixture_snapshot_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    """Dropping the network valid-on argument must retain the expired AMD fixture edge."""
+
+    exit_code = main([
+        "--snapshot", str(fixture_snapshot_path), "network", "nvidia", "--as-of", "2026-09-23",
+    ])
+
+    body = json.loads(capsys.readouterr().out)
+    assert exit_code == 0
+    assert "rel-amd-nvidia-peer" not in {edge["id"] for edge in body["data"]["edges"]}
+    assert {edge["id"] for edge in body["data"]["edges"]} == {
+        "rel-tsmc-nvidia-supplier",
+        "rel-coreweave-nvidia-customer",
+        "rel-nvidia-dell-customer",
+    }
+
+
 def test_missing_relationship_returns_a_json_runtime_error(
     fixture_snapshot_path: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:

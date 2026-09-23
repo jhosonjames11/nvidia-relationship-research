@@ -25,6 +25,21 @@ def test_default_app_prefers_the_snapshot_path_environment_variable(
     assert client.get("/health").json()["meta"]["snapshot_id"] == "fixture-2026-09-23"
 
 
+def test_docs_serve_swagger_assets_locally(client: TestClient) -> None:
+    """Replacing locally installed docs assets with CDN URLs must break this contract."""
+
+    response = client.get("/docs")
+
+    assert response.status_code == 200
+    assert 'href="/docs/static/swagger-ui.css"' in response.text
+    assert 'src="/docs/static/swagger-ui-bundle.js"' in response.text
+    assert "http://" not in response.text
+    assert "https://" not in response.text
+    assert client.get("/docs/static/swagger-ui.css").status_code == 200
+    assert client.get("/docs/static/swagger-ui-bundle.js").status_code == 200
+    assert client.get("/redoc").status_code == 404
+
+
 @pytest.fixture
 def fixture_snapshot_path() -> Path:
     return Path(__file__).parent / "fixtures" / "snapshot-valid"
@@ -119,6 +134,22 @@ def test_relationships_apply_filters_and_keep_page_metadata(client: TestClient) 
     assert [relationship["id"] for relationship in body["data"]] == [
         "rel-tsmc-nvidia-supplier"
     ]
+
+
+def test_relationships_direction_either_does_not_restrict_results(client: TestClient) -> None:
+    """Treating the public either direction as a repository filter must break this contract."""
+
+    response = client.get(
+        "/v1/relationships", params={"company_id": "nvidia", "direction": "either", "limit": 100}
+    )
+
+    assert response.status_code == 200
+    assert {relationship["id"] for relationship in response.json()["data"]} == {
+        "rel-tsmc-nvidia-supplier",
+        "rel-coreweave-nvidia-customer",
+        "rel-nvidia-dell-customer",
+        "rel-amd-nvidia-peer",
+    }
 
 
 def test_relationship_detail_contains_score_and_evidence(client: TestClient) -> None:

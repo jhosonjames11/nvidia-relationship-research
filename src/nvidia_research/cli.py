@@ -47,6 +47,7 @@ def _parser() -> argparse.ArgumentParser:
     network.add_argument("--depth", type=int, choices=(1, 2), default=1)
     network.add_argument("--type", choices=[item.value for item in RelationshipType])
     network.add_argument("--status", choices=[item.value for item in RelationshipStatus])
+    network.add_argument("--as-of", type=date.fromisoformat)
     network.add_argument("--min-confidence", type=int, default=0)
 
     commands.add_parser("validate")
@@ -147,6 +148,7 @@ def _network(repository: SnapshotRepository, arguments: argparse.Namespace) -> d
             depth=arguments.depth,
             relationship_type=arguments.type,
             status=arguments.status,
+            valid_on=arguments.as_of,
             min_confidence=arguments.min_confidence,
         )
     except KeyError as exc:

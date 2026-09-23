@@ -21,13 +21,14 @@ uvicorn nvidia_research.api:app --reload
 
 The default application loads `data/snapshots/nvidia-2026-09-23` from the repository root. To load a different local snapshot, set `NVIDIA_RESEARCH_SNAPSHOT_PATH` before starting Uvicorn; that environment variable takes precedence over the default.
 
-`GET /docs` exposes the local FastAPI contract. The read-only research routes are `GET /health`, `GET /v1/companies`, `GET /v1/relationships`, `GET /v1/relationships/{relationship_id}`, `GET /v1/network/{company_id}`, and `GET /v1/evidence/{evidence_id}`.
+`GET /docs` exposes the local FastAPI contract using Swagger UI assets installed with the package; it remains usable without runtime network access. `/redoc` is deliberately disabled because it would otherwise depend on remote assets. The read-only research routes are `GET /health`, `GET /v1/companies`, `GET /v1/relationships`, `GET /v1/relationships/{relationship_id}`, `GET /v1/network/{company_id}`, and `GET /v1/evidence/{evidence_id}`.
 
 ## Use the CLI
 
 ```bash
 nvidia-research relationships --company nvidia --status confirmed
 nvidia-research network nvidia --depth 2 --min-confidence 70
+nvidia-research network nvidia --as-of 2026-09-23
 ```
 
 Use `nvidia-research validate` to validate the default local snapshot, or pass `--snapshot path/to/snapshot` to select a different local directory. Validation and queries do not fetch URLs.

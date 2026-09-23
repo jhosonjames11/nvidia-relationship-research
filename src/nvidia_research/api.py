@@ -9,7 +9,10 @@ from typing import Annotated, Any
 
 from fastapi import FastAPI, Query, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from swagger_ui_bundle import swagger_ui_path
 
 from .models import Company, RelationshipStatus, RelationshipType
 from .repository import SnapshotRepository
@@ -55,7 +58,13 @@ def _matches_company_query(company: Company, query: str | None) -> bool:
 def create_app(repository: SnapshotRepository) -> FastAPI:
     """Create an offline, read-only application for one immutable snapshot."""
 
-    app = FastAPI(title="NVIDIA Relationship Research", version="1.0.0")
+    app = FastAPI(
+        title="NVIDIA Relationship Research",
+        version="1.0.0",
+        docs_url=None,
+        redoc_url=None,
+    )
+    app.mount("/docs/static", StaticFiles(directory=swagger_ui_path), name="swagger-ui-assets")
 
     @app.exception_handler(RequestValidationError)
     async def request_validation_error_handler(
@@ -68,6 +77,16 @@ def create_app(repository: SnapshotRepository) -> FastAPI:
     async def repository_value_error_handler(request: Request, exc: ValueError) -> JSONResponse:
         del request
         return JSONResponse(status_code=400, content={"detail": str(exc)})
+
+    @app.get("/docs", include_in_schema=False)
+    def documentation() -> Any:
+        return get_swagger_ui_html(
+            openapi_url=app.openapi_url,
+            title=f"{app.title} - Swagger UI",
+            swagger_js_url="/docs/static/swagger-ui-bundle.js",
+            swagger_css_url="/docs/static/swagger-ui.css",
+            swagger_favicon_url="/docs/static/favicon-32x32.png",
+        )
 
     @app.get("/health")
     def health() -> dict[str, Any]:
@@ -123,7 +142,7 @@ def create_app(repository: SnapshotRepository) -> FastAPI:
         page = repository.list_relationships(
             company_id=company_id,
             relationship_type=relationship_type,
-            direction=direction,
+            direction=None if direction == "either" else direction,
             status=status,
             valid_on=as_of,
             min_confidence=min_confidence,
