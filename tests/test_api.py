@@ -7,6 +7,24 @@ from nvidia_research.api import create_app
 from nvidia_research.repository import SnapshotRepository
 
 
+def test_default_app_loads_the_committed_default_snapshot(monkeypatch) -> None:
+    monkeypatch.delenv("NVIDIA_RESEARCH_SNAPSHOT_PATH", raising=False)
+    from nvidia_research.api import create_default_app
+
+    client = TestClient(create_default_app())
+    assert client.get("/health").json()["meta"]["snapshot_id"] == "nvidia-2026-09-23"
+
+
+def test_default_app_prefers_the_snapshot_path_environment_variable(
+    monkeypatch, fixture_snapshot_path: Path
+) -> None:
+    monkeypatch.setenv("NVIDIA_RESEARCH_SNAPSHOT_PATH", str(fixture_snapshot_path))
+    from nvidia_research.api import create_default_app
+
+    client = TestClient(create_default_app())
+    assert client.get("/health").json()["meta"]["snapshot_id"] == "fixture-2026-09-23"
+
+
 @pytest.fixture
 def fixture_snapshot_path() -> Path:
     return Path(__file__).parent / "fixtures" / "snapshot-valid"

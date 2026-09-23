@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from datetime import date
+import os
+from pathlib import Path
 from typing import Annotated, Any
 
 from fastapi import FastAPI, Query, Request
@@ -173,3 +175,18 @@ def create_app(repository: SnapshotRepository) -> FastAPI:
         return _response(repository, evidence)
 
     return app
+
+
+def create_default_app() -> FastAPI:
+    """Create the read-only application from the configured local snapshot."""
+
+    configured_path = os.environ.get("NVIDIA_RESEARCH_SNAPSHOT_PATH")
+    snapshot_path = (
+        Path(configured_path)
+        if configured_path
+        else Path(__file__).resolve().parents[2] / "data/snapshots/nvidia-2026-09-23"
+    )
+    return create_app(SnapshotRepository.from_directory(snapshot_path))
+
+
+app = create_default_app()
